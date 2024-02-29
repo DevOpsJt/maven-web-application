@@ -21,7 +21,7 @@
 		<spring.version>5.1.2.RELEASE</spring.version>
 		<junit.version>4.11</junit.version>
 		<log4j.version>1.2.17</log4j.version>
-		<sonar.host.url>http://35.154.95.227:9414</sonar.host.url>
+		<sonar.host.url>http://172.31.45.242:9414</sonar.host.url>
 		<sonar.login>squ_e036ea446b29c8f8673684753a75f37c6ef08a1c</sonar.login>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
@@ -97,13 +97,13 @@
 	    <repository>
 	      <id>nexus</id>
 	      <name>Jt Tech Releases Nexus Repository</name>
-	      <url>http://3.108.51.124:9414/jtmeena/repository/maven-releases/</url>
+	      <url>http://172.31.6.82:9414/jtmeena/repository/maven-releases/</url>
 	    </repository>
 	    
 	    <snapshotRepository>
 	      <id>nexus</id>
 	      <name>Jt Tech Snapshot Nexus Repository </name>
-	      <url>http://3.108.51.124:9414/jtmeena/repository/maven-snapshots/</url>
+	      <url>http://172.31.6.82:9414/jtmeena/repository/maven-snapshots/</url>
 	    </snapshotRepository>
 	    
 	</distributionManagement>
