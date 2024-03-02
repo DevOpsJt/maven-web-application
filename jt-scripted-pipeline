@@ -40,7 +40,6 @@ try{
         }
     }//stage closing
 
- */
   }//try closing
   catch(e){
   currentBuild.result="FAILURE"
@@ -52,7 +51,6 @@ try{
 
 }//node closing
 
-/*
 //Code Snippet for sending slack notifications.
 
 def slackNotifications(String buildStatus = 'STARTED') {
@@ -79,7 +77,5 @@ def slackNotifications(String buildStatus = 'STARTED') {
   }
 
   // Send notifications
-  slackSend (color: colorCode, message: summary, channel: "#walmart")
+  slackSend (color: colorCode, message: summary, channel: "#jenkins-integration")
 }
-
-*/
