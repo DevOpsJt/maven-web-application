@@ -9,7 +9,11 @@ pipeline {
     options {
             buildDiscarder logRotator(artifactDaysToKeepStr: '', artifactNumToKeepStr: '', daysToKeepStr: '', numToKeepStr: '2')
             timestamps () }
-            
+
+        echo "The JobName is: ${env.JOB_NAME}"
+	    echo "The Node is: ${env.NODE_NAME}"
+	    echo "The Build number is: ${env.BUILD_NUMBER}"
+
     stages 
     {
         stage ('CheckOutCode') 
