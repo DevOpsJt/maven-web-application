@@ -1,0 +1,59 @@
+pipeline {
+    agent { label 'Node1-JtTech' }
+    
+    tools { maven 'maven v3.9.6' }
+    
+    triggers { pollSCM '* * * * *' }
+    
+    options {
+            buildDiscarder logRotator(artifactDaysToKeepStr: '', artifactNumToKeepStr: '', daysToKeepStr: '', numToKeepStr: '2')
+            timestamps () }
+            
+    stages 
+    {
+        stage ('CheckOutCode') 
+        {
+            steps 
+            {
+            git branch: 'development', credentialsId: 'a7ee8193-1c8f-419b-8f36-deac9b60e1ba', url: 'https://github.com/DevOpsJt/maven-web-application.git'
+            }
+        }
+        
+        stage ('Build') 
+        {
+            steps
+            {
+                sh "mvn clean package"
+            }
+        }
+        
+        stage ('ExecuteSonarReport')
+        {
+            steps
+            {
+            sh "mvn sonar:sonar"    
+            }
+        }
+        
+        stage ('Nexussserver')
+        {
+            steps
+            {
+                sh "mvn deploy"
+            }
+        }
+        
+        stage ('DeployInTomcatServer')
+        {
+            steps 
+            {
+                sshagent(['ed35074d-b48a-4117-bd3d-5db57ae416f9']) 
+                {
+                    sh "scp -o StrictHostKeyChecking=no target/maven-web-application.war ec2-user@172.31.45.103:/opt/apache-tomcat-9.0.86/webapps"
+                }
+                    
+            }
+        }
+    }//stage closing
+    
+}//pipeline closing
