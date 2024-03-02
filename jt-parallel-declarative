@@ -24,26 +24,26 @@ pipeline {
         {
             steps
             {
-          parallel (
-            build : 
-           { 
-           sh "mvn clean package" 
-            }
-            ExecuteSonarReport :
-            {
-            sh "mvn sonar:sonar"    
-            }
-            Nexussserver :
-            {
-                sh "mvn deploy"
-            }
-            DeployInTomcatServer :
-            {
-                sshagent(['ed35074d-b48a-4117-bd3d-5db57ae416f9']) 
-                {
-                    sh "scp -o StrictHostKeyChecking=no target/maven-web-application.war ec2-user@172.31.45.103:/opt/apache-tomcat-9.0.86/webapps"
-                }  
-              }
+             parallel (
+                build : 
+                    { 
+                   sh "mvn clean package" 
+                    },
+                SonarReport :
+                    {
+                    sh "mvn sonar:sonar"    
+                    },
+                Nexussserver :
+                    {
+                    sh "mvn deploy"
+                    },
+                DeployInTomcatServer :
+                    {
+                    sshagent(['ed35074d-b48a-4117-bd3d-5db57ae416f9']) 
+                        {
+                        sh "scp -o StrictHostKeyChecking=no target/maven-web-application.war ec2-user@172.31.45.103:/opt/apache-tomcat-9.0.86/webapps"
+                        }  
+                    }
               )//parallel closing
             }//steps closing
         }//stage closing
