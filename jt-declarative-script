@@ -1,5 +1,10 @@
+@Library('jt_slack') _
+
 pipeline {
     agent { label 'Node1-JtTech' }
+    try{
+
+      sendSlackNotifications('STARTED')
     
     tools { maven 'maven v3.9.6' }
     
@@ -55,5 +60,14 @@ pipeline {
             }
         }
     }//stage closing
+
+    }//try closing
+  catch(e){
+  currentBuild.result="FAILURE"
+  throw e
+  }//catch closing
+  finally{
+  sendSlackNotifications(currentBuild.result)
+  }
     
 }//pipeline closing
