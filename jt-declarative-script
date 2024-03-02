@@ -1,3 +1,4 @@
+@Library('jt_slack') _
 pipeline {
     agent { label 'Node1-JtTech' }
     
