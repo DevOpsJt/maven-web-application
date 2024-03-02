@@ -1,10 +1,5 @@
-@Library('jt_slack') _
-
 pipeline {
     agent { label 'Node1-JtTech' }
-    try{
-
-      sendSlackNotifications('STARTED')
     
     tools { maven 'maven v3.9.6' }
     
@@ -55,19 +50,8 @@ pipeline {
                 sshagent(['ed35074d-b48a-4117-bd3d-5db57ae416f9']) 
                 {
                     sh "scp -o StrictHostKeyChecking=no target/maven-web-application.war ec2-user@172.31.45.103:/opt/apache-tomcat-9.0.86/webapps"
-                }
-                    
+                }  
             }
         }
     }//stage closing
-
-    }//try closing
-  catch(e){
-  currentBuild.result="FAILURE"
-  throw e
-  }//catch closing
-  finally{
-  sendSlackNotifications(currentBuild.result)
-  }
-    
 }//pipeline closing
