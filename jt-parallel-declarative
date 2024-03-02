@@ -36,13 +36,6 @@ pipeline {
                 Nexussserver :
                     {
                     sh "mvn deploy"
-                    },
-                DeployInTomcatServer :
-                    {
-                    sshagent(['ed35074d-b48a-4117-bd3d-5db57ae416f9']) 
-                        {
-                        sh "scp -o StrictHostKeyChecking=no target/maven-web-application.war ec2-user@172.31.45.103:/opt/apache-tomcat-9.0.86/webapps"
-                        }  
                     }
               )//parallel closing
             }//steps closing
